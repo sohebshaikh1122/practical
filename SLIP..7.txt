@@ -1,0 +1,93 @@
+
+
+Q1..Write a Java Program to implement undo command to test Ceiling fan. 
+
+interface Command 
+{
+        public void execute();
+}
+  class CeilingFan { 
+         public void on(){
+     System.out.println("Ceiling Fan is on");
+ }
+       public void off()
+    {
+                    System.out.println("Ceiling Fan is off");
+     }
+}
+          class CeilingFanOnCommand implements Command { 
+                  CeilingFan c;
+           public CeilingFanOnCommand(CeilingFan l) { 
+                            this.c = l;
+ }
+            public void execute() {
+                       c.on();
+    }
+}
+            class CeilingFanOffCommand implements Command { 
+                                   CeilingFan c;
+                public CeilingFanOffCommand(CeilingFan l) { 
+                                      this.c = l;
+                       }
+                         public void execute() { 
+                                   c.off();
+                         }
+                     }
+                 class SimpleRemoteControl {
+                           Command slot;
+                 public SimpleRemoteControl() {}
+              public void setCommand(Command command) {
+                              slot = command;
+              }
+             public void buttonWasPressed() { 
+                           slot.execute();
+             }
+       }
+           public class Main {
+              public static void main(String[] args) {
+                   SimpleRemoteControl remote = new SimpleRemoteControl(); CeilingFan ceilingFan=new CeilingFan();
+                  CeilingFanOnCommand ceilingFanOn =new CeilingFanOnCommand(ceilingFan); remote.setCommand(ceilingFanOn);
+                 remote.buttonWasPressed();
+
+               CeilingFanOffCommand ceilingFanOff =new CeilingFanOffCommand(ceilingFan); remote.setCommand(ceilingFanOff);
+              remote.buttonWasPressed();
+    }
+}
+
+Q2.. Write a python program to Implement Naïve Bayes.
+
+import numpy as np
+import pandas as pd
+data=pd.read_csv("user_data1.csv")
+print(data)
+x=data.iloc[:,[2,4]].values
+y=data.iloc[:,4].values
+from sklearn.model_selection import train_test_split
+xtrain,xtest,ytrain,ytest=train_test_split(x,y,test_size=0.05)
+from sklearn.preprocessing import StandardScaler
+sc=StandardScaler()
+xtrain=sc.fit_transform(xtrain)
+xtest=sc.fit_transform(xtest)
+from sklearn.naive_bayes import GaussianNB
+gb=GaussianNB()
+gb.fit(xtrain,ytrain)
+ypred=gb.predict(xtest)
+print(ytest)
+print(ypred)
+from sklearn.metrics import confusion_matrix
+cm=confusion_matrix(ytest,ypred)
+print(cm)
+
+
+Q3... Create a Node.js file that writes an HTML form, with an upload field. 
+ 	
+var http = require('http'); 
+ http.createServer(function (req, res) 
+{  
+ res.writeHead(200, {'Content-Type': 'text/html'});   
+res.write('<form action="fileupload" method="post" enctype="multipart/formdata">');   
+res.write('<input type="file" name="filetoupload"><br>');  
+ res.write('<input type="submit">');   
+res.write('</form>');  
+ return res.end(); 
+}).listen(8080);
